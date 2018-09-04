@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<script type="text/javascript" src="{{ url_for('static',filename='jquery-3.1.1.js') }}"></script>
+    <script type="text/javascript">
+        function getData(){
+            $.ajax({
+                url:'/ajax',
+                success:function(data){
+                    html = "<h3>名称："
+                    html+=data.name;
+                    html+="价格："
+                    html+=data.price;
+                    html+="</h3>"
+                    $("#mydiv").html(html);
+                },
+                dataType:'json'
+            });
+        }
+    </script>
+</head>
+<body>
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% for flashed_msg in get_flashed_messages() %}
+    <li> {{ flashed_msg }} </li>
+{% endfor %}
+
+{{ wtf.quick_form(form,action="/login") }}
+
+<input type="text" name="uputin" id="a">
+<input type="button" value="提交" onclick="getData(a.value)">
+
+<img src="{{ url_for('static',filename='2.jpg') }}">
+<video src="{{ url_for('static',filename='123.mp4') }}" controls="controls">222</video>
+</body>
+</html>
